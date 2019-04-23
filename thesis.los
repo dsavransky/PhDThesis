@@ -1,0 +1,64 @@
+\addvspace {10\p@ }
+\contentsline {symbol}{\numberline {$S$}{\ignorespaces Star position}}{5}{symbol 0}
+\contentsline {symbol}{\numberline {$sc$}{\ignorespaces Observer position}}{5}{symbol 1}
+\contentsline {symbol}{\numberline {$\mathcal I$}{\ignorespaces Inertial barycentric/ecliptic solar system frame.}}{5}{symbol 2}
+\contentsline {symbol}{\numberline {$O$}{\ignorespaces Solar system barycenter}}{5}{symbol 3}
+\contentsline {symbol}{\numberline {$d$}{\ignorespaces Star distance with respect to solar system barycenter}}{6}{symbol 4}
+\contentsline {symbol}{\numberline {$P$}{\ignorespaces Planet position}}{6}{symbol 5}
+\contentsline {symbol}{\numberline {$G$}{\ignorespaces Exosystem barycenter}}{6}{symbol 6}
+\contentsline {symbol}{\numberline {$r$}{\ignorespaces Orbital radius}}{7}{symbol 7}
+\contentsline {symbol}{\numberline {$p$}{\ignorespaces Geometric albedo}}{7}{symbol 8}
+\contentsline {symbol}{\numberline {$R$}{\ignorespaces Planet radius}}{7}{symbol 9}
+\contentsline {symbol}{\numberline {$F_p$}{\ignorespaces Planet flux}}{7}{symbol 10}
+\contentsline {symbol}{\numberline {$F_s$}{\ignorespaces Star flux}}{7}{symbol 11}
+\contentsline {symbol}{\numberline {$L$}{\ignorespaces Stellar luminosity}}{7}{symbol 12}
+\contentsline {symbol}{\numberline {$a$}{\ignorespaces Orbital semi-major axis}}{8}{symbol 13}
+\contentsline {symbol}{\numberline {$e$}{\ignorespaces Orbital eccentricity}}{8}{symbol 14}
+\contentsline {symbol}{\numberline {$\psi ,\theta ,\phi $}{\ignorespaces Euler angles orienting orbit in space}}{8}{symbol 15}
+\contentsline {symbol}{\numberline {$M$}{\ignorespaces Mean anomaly}}{8}{symbol 16}
+\contentsline {symbol}{\numberline {$E$}{\ignorespaces Eccentric anomaly}}{8}{symbol 17}
+\contentsline {symbol}{\numberline {$\nu $}{\ignorespaces True anomaly}}{8}{symbol 18}
+\contentsline {symbol}{\numberline {$\mu _P$}{\ignorespaces Gravitational parameter of planet}}{9}{symbol 19}
+\contentsline {symbol}{\numberline {$\mu _S$}{\ignorespaces Gravitational parameter of star}}{9}{symbol 20}
+\contentsline {symbol}{\numberline {$m_S$}{\ignorespaces Mass of star}}{9}{symbol 21}
+\contentsline {symbol}{\numberline {$m_P$}{\ignorespaces Mass of planet}}{9}{symbol 22}
+\contentsline {symbol}{\numberline {$P_{orb}$}{\ignorespaces Orbital period}}{10}{symbol 23}
+\contentsline {symbol}{\numberline {$t$}{\ignorespaces Time}}{10}{symbol 24}
+\contentsline {symbol}{\numberline {$\Omega $}{\ignorespaces Longitude of the ascending node}}{12}{symbol 25}
+\contentsline {symbol}{\numberline {$I$}{\ignorespaces Inclination}}{12}{symbol 26}
+\contentsline {symbol}{\numberline {$\omega $}{\ignorespaces Argument of periapsis}}{12}{symbol 27}
+\contentsline {symbol}{\numberline {$c$}{\ignorespaces Speed of light}}{16}{symbol 28}
+\contentsline {symbol}{\numberline {PSF}{\ignorespaces Point spread function}}{17}{symbol 29}
+\contentsline {symbol}{\numberline {$\lambda $}{\ignorespaces Wavelength}}{18}{symbol 30}
+\contentsline {symbol}{\numberline {$\mathcal S$}{\ignorespaces Sky frame}}{23}{symbol 31}
+\contentsline {symbol}{\numberline {$\mathbf s$}{\ignorespaces Sky star-planet vector}}{23}{symbol 32}
+\contentsline {symbol}{\numberline {$s$}{\ignorespaces Apparent separation}}{24}{symbol 33}
+\contentsline {symbol}{\numberline {$F_R$}{\ignorespaces Ratio of planet to star fluxes}}{25}{symbol 34}
+\contentsline {symbol}{\numberline {$\Phi $}{\ignorespaces Planet phase function}}{25}{symbol 35}
+\contentsline {symbol}{\numberline {$\beta $}{\ignorespaces Phase angle}}{25}{symbol 36}
+\contentsline {symbol}{\numberline {$\Delta $mag}{\ignorespaces Difference in magnitude between star and planet}}{25}{symbol 37}
+\contentsline {symbol}{\numberline {IWA}{\ignorespaces Inner working angle}}{25}{symbol 38}
+\contentsline {symbol}{\numberline {$\Delta $mag$_0$}{\ignorespaces Limiting $\Delta $mag}}{26}{symbol 39}
+\contentsline {symbol}{\numberline {$d_s$}{\ignorespaces Occulter separation distance}}{27}{symbol 40}
+\contentsline {symbol}{\numberline {$C_p$}{\ignorespaces Mean photon count at pixel centered on planet PSF}}{32}{symbol 41}
+\contentsline {symbol}{\numberline {$C_b$}{\ignorespaces Mean background photon count}}{32}{symbol 42}
+\contentsline {symbol}{\numberline {$Q$}{\ignorespaces Ratio of planet to background photon counts}}{33}{symbol 43}
+\contentsline {symbol}{\numberline {FAP}{\ignorespaces False Alarm Probability}}{33}{symbol 44}
+\contentsline {symbol}{\numberline {MDP}{\ignorespaces Missed Detection Probability}}{33}{symbol 45}
+\contentsline {symbol}{\numberline {$\Psi $}{\ignorespaces Sharpness}}{33}{symbol 46}
+\contentsline {symbol}{\numberline {QE}{\ignorespaces Quantum efficiency}}{34}{symbol 47}
+\contentsline {symbol}{\numberline {$M_V$}{\ignorespaces Absolute magnitude (V band)}}{36}{symbol 48}
+\contentsline {symbol}{\numberline {$\mu $}{\ignorespaces Brightness of exo-zodi}}{36}{symbol 49}
+\contentsline {symbol}{\numberline {S/N}{\ignorespaces Signal to noise ratio}}{38}{symbol 50}
+\contentsline {symbol}{\numberline {$\mathcal B$}{\ignorespaces Tangent frame}}{40}{symbol 51}
+\contentsline {symbol}{\numberline {$\varpi $}{\ignorespaces Parallax}}{40}{symbol 52}
+\contentsline {symbol}{\numberline {$\mathbf {r}_\mu $}{\ignorespaces Exosystem barycenter motion vector}}{41}{symbol 53}
+\contentsline {symbol}{\numberline {$V_R$}{\ignorespaces Radial velocity}}{41}{symbol 54}
+\contentsline {symbol}{\numberline {$\mathbf {V}_T$}{\ignorespaces Transverse velocity}}{41}{symbol 55}
+\contentsline {symbol}{\numberline {OPD}{\ignorespaces Optical path delay}}{42}{symbol 56}
+\contentsline {symbol}{\numberline {$\mathbf B$}{\ignorespaces Observatory orientation vector}}{42}{symbol 57}
+\contentsline {symbol}{\numberline {$F^{(e)}_S$}{\ignorespaces Obscured stellar flux}}{49}{symbol 58}
+\contentsline {symbol}{\numberline {$R_S$}{\ignorespaces Star radius}}{49}{symbol 59}
+\contentsline {symbol}{\numberline {$I_{sp}$}{\ignorespaces Specific Impulse}}{107}{symbol 60}
+\contentsline {symbol}{\numberline {SDO}{\ignorespaces Single-Distance Occulter}}{122}{symbol 61}
+\contentsline {symbol}{\numberline {MDO}{\ignorespaces Multiple-Distance Occulter}}{122}{symbol 62}

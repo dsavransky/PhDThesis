@@ -1,0 +1,94 @@
+\documentclass[oneside,11pt]{amsart}
+
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+
+%%set margins:
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+%\headsep=0.25in
+
+
+\title{Thesis Proposal}
+
+\author{Dmitry Savransky}
+
+
+\begin{document}
+\vspace{-2ex}
+\maketitle
+\vspace{-2ex}
+\begin{center}\today\end{center}
+\section{Topic}
+For my thesis, I would like to develop a generally applicable formalism for updating our knowledge of exosystems with new observations.  I believe that if you treat an exosystem as a realization of a deterministic Markov process (as we've essentially been doing in our recent papers), then the type and quality of an observation should be immaterial, given that:
+\begin{enumerate}
+\item It is possible to write a functional relationship between the parameter set being used to describe the exosystem (i.e., star position, velocity, mass, parallax, proper motion and spectrum; planet positions, velocities, radii, masses, albedos, and spectral feature drivers) and the observed data.
+\item It is possible to correctly quantify the noise profile of the measurement.  The expected value and something about the distribution of the noise must be known.
+\end{enumerate}
+Any observations that meet these conditions will be `helpful' --- they will constrain all or a subset of the parameter set, thereby effectively increasing our knowledge of the exosystem.  However, in order to quantify the term `helpful' a rigorous statement of the parameter estimate update is required.  The basic approach will be to treat this as a filtering problem, except that it is assumed that the underlying dynamic system is fully deterministic and governed by strict Newtonian physics (except where relativistic corrections are required to accurately describe an observation methodology) and contains no stochastic elements.  Stochastic processes will only be considered in the form of measurement error.
+
+Because the basic approach to filtering problems is essentially Bayesian, this work must include a treatment of the exosystem priors as well as a method for updating parameter estimate posteriors. Properly describing the prior distribution of an exosystem requires combining existing knowledge of exoplanet parameter distributions with physical models of planetary systems.  Most of these distributions will probably be calculated via Monte-Carlo (MC) simulation, although I have made some progress in deriving purely analytical descriptions of Keplerian orbital parameters and hope to do more in this are.  In order to incorporate known exoplanet parameter statistics into MC simulations it will be necessary to select an appropriate sampling scheme.  I have already verified a simple rejection sampling scheme for discontinuous and piecewise-continuous parameter distributions often found in the literature, but there also exist parameter distribution fits which can be used to formulate continuous cumulative density functions.  For these, it would make sense to explore better sampling methods such as inverse transform sampling.
+
+Because the solution to the general non-linear filtering problem has been shown to be infinite dimensional, a practical solution to the parameter update problem will have to rely on finite dimension approximations derived from recursive nonlinear filters.  Given our limited past successes with heuristic filters such as the EKF, it makes sense to investigate either sequential Monte-Carlo filters (particle filters), or differential geometric filters (projection filters).  Implementation of any of these will require accurate descriptions of the observations, so specific astronomical methods will have to be discussed in the thesis.  These will, of course, include direct imaging and radial velocity/astrometry.  It would be nice to include transit photometry as well, but given past experience of how long it took to adequately grasp astrometry,  I am unsure whether this will be possible.
+
+\section{Status of Work}
+Completed work:
+\begin{itemize}
+\item Full description and simulation capability of exosystem dynamics.
+\item Description of direct detection observations and mapping  to exosystem parameters
+\item Description of astrometry/RV observations and mapping to exosystem parameters
+\item Partial description of exosystem priors.
+\item Implementation of EKF for astrometry/RV.
+\end{itemize}
+
+Work to be done:
+\begin{itemize}
+\item Carry out analytic formulation of a priori exosystem parameter distributions as far as possible.
+\item Collect all of the current exosystem parameter distribution fits that have been published including anything from Kepler.
+\item Evaluate sampling schemes to best fit existing data into exosystem simulations.
+\item Define unified exosystem parameter set.  Describe observer functions for all observation methods.
+\item Implement alternative parameter update steps based on geometric/SMC methods and evaluate performance. 
+\end{itemize}
+
+\section{Questions to Answer}
+\begin{itemize}
+\item Is change in the posterior distribution (state covariance estimate) sufficient to quantify how `helpful' an observation is, or is a different metric required?
+\item Is there an efficient way of dealing with unknown numbers of planets in a given exosystem?  Is it possible to apply smoothing on an update step to expand or contract a state vector (i.e., add or delete planets without restarting the recursive filter from scratch)?
+\item What else?
+\end{itemize}
+
+\section{Preliminary Outline}
+\begin{enumerate}
+\item Introduction/Background
+\begin{enumerate}
+\item Define problem and approach
+\item Describe exosystem dynamics
+\item Define exosystem parameter set
+\end{enumerate}
+\item Observation Methods
+\begin{enumerate}
+\item Direct Detection
+\begin{enumerate}
+\item General instrument observables and constraints.
+\item Mapping to parameter set - brightness to albedo/phase function, apparent separation to planet position
+\item Everything about direct detection comes down to the PSF, so a lot of discussion on that
+\end{enumerate}
+\item Astrometry/RV - same stuff as for direct detection
+\item Transit photometry would go here, if included.
+\end{enumerate}
+\item The Distribution of Exosystem Parameters
+\begin{enumerate}
+\item Analytical description of orbital parameters as functions of underlying distributions
+\item Current state of knowledge of those underlying distributions for known planets in the galaxy
+\end{enumerate}
+\item Integration of Data
+\begin{enumerate}
+\item Initialization of state and covariance for an exosystem
+\item Update step
+\end{enumerate}
+\end{enumerate}
+
+
+\end{document}

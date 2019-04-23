@@ -1,0 +1,33 @@
+\chapter{Mission Timeline Encoding}\label{app:DRMencoding}
+
+At each step (every new target observation) of a mission simulation, the following values are recorded:
+
+\begin{enumerate}
+\item Target number (based on arbitrary ordering of the whole target list)
+\item Arrival time (seconds after mission start)
+\item Spacecraft mass on target arrival (kg)
+\item Detection status (-2 = False Positive, -1 = False Negative, 0 = True Negative, 1 = True Positive)
+\item Detection integration time (s)
+\item Detection stationkeeping $\Delta V$ (m/s) 
+\item Detection stationkeeping fuel mass (kg)
+\item Planet sky angle at time of detection (mas)
+\item Planet $\Delta$mag at time of detection
+\item First distance spectrum status (boolean: 0 = Failure, 1 = Success)\footnote{First distance refers to the first separation distance for MDOs.  For coronagraphs, this is the only spectrum taken.}
+\item First distance spectrum integration time (s)
+\item First distance spectrum stationkeeping $\Delta V$  (m/s)
+\item First distance spectrum stationkeeping fuel mass (kg)
+\item Characterization slew $\Delta V$ (m/s)\footnote{Only for MDOs - refers to the slew between the different separation distances.}
+\item Characterization slew fuel mass (kg)
+\item Second distance spectrum success (boolean)
+\item Second distance spectrum integration time (s)
+\item Second distance spectrum stationkeeping $\Delta V$ (m/s)
+\item Second distance spectrum stationkeeping fuel mass (kg)
+\item Slew time to next target (s) \footnote{Constant for coronagraphs.}
+\item Slew $\Delta V$ to next target (m/s)
+\item Slew fuel mass to next target (kg)
+\item Slew angle to next target(rad)
+\item Lateral disturbance force at first distance separation (N)
+\item Axial disturbance force at first distance separation (N)
+\item Lateral disturbance force at second distance separation (N)
+\item Axial disturbance force at second distance separation (N)
+\end{enumerate}

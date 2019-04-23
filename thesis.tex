@@ -1,0 +1,149 @@
+%!TEX TS-program = pdflatexmk
+\documentclass[12pt,lof,lot,los]{puthesis}
+\newgeometry{left=1in,top=1in,right=1in,bottom=1in,footskip=0.333in}
+
+%%IMPORTANT%%
+% Check whether colorlinks are turned on
+% Check whether twoside is turned on
+
+%packages
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{array}
+\usepackage{subfigure}
+\usepackage[OT2,T1]{fontenc} %lets you include russian
+\usepackage[russian,english]{babel}
+\usepackage[numbers]{natbib} %use natbib with numbered references
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{listings} %required for matlab
+\usepackage{threeparttable} %required for table footnotes
+\usepackage{float} %required for floating equation environment
+\usepackage{upquote} %change curly quotes to normal quotes in matlab source
+
+%puthesis inputs
+\title{Exosystem Modeling for\\ Mission Simulation and Survey Analysis}
+\submitted{September 2011} 
+\author{Dmitry Savransky}
+\adviser{N. Jeremy Kasdin}
+\dept{Mechanical and Aerospace Engineering}
+\abstract{ \input{abstract} }
+\acknowledgements{ \input{acknowledgements} }
+\dedication{ \input{dedication} }
+\frontnotes{ \input{notation} }
+
+%hyperlinks options (must come after definition of \author and \title)
+\definecolor{MyBlue}{rgb}{0.0,0.0,1.0}
+ \makeatletter
+ \hypersetup{
+    pdfborder	= {0 0 0},			%remove borders from links
+    colorlinks	= true,			%color links by type (set to false for printing)
+    citecolor	= MyBlue,			%make citations blue
+    bookmarksnumbered = true, 		%add numbers to bookmarks
+    pdftitle		=  \@title, 				
+    pdfauthor 	=  \@author, 
+    pdfsubject	= {PhD Thesis}
+}
+ \makeatother
+
+% private defs
+\def\mf{\mathbf}
+\def\mb{\mathbb}
+\def\mc{\mathcal}
+\newcommand{\R}{\mathbf{r}}
+\newcommand{\bc}{\mathbf{b}}
+\newcommand{\PSF}{\mathrm{PSF}}
+\newcommand{\refeq}[1]{Equation  (\ref{#1})} 
+\newcommand{\reftable}[1]{Table \ref{#1}} 
+\newcommand{\refch}[1]{Chapter  \ref{#1}} 
+\newcommand{\reffig}[1]{Figure \ref{#1}}
+\newcommand{\refcode}[1]{Listing \ref{#1}}
+\newcommand{\intd}[1]{\ensuremath{\,\mathrm{d}#1}}
+\newcommand{\leftexp}[2]{{\vphantom{#2}}^{#1}\!{#2}}
+\newcommand{\leftsub}[2]{{\vphantom{#2}}_{#1}\!{#2}}
+\newcommand{\fddt}[1]{\ensuremath{\leftexp{\mathcal{#1}}{\frac{\mathrm{d}}{\mathrm{d}t}}}}
+\newcommand{\fdddt}[1]{\ensuremath{\leftexp{\mathcal{#1}}{\frac{\mathrm{d}^2}{\mathrm{d}t^2}}}}
+\newcommand{\omegarot}[2]{\ensuremath{\leftexp{\mathcal{#1}}{\boldsymbol{\omega}}^{\mathcal{#2}}}}
+
+%MATLAB
+% This is the color used for MATLAB comments below
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0}
+%define a midline tilde so that it looks good in the code
+\newcommand{\midtilde}{\raisebox{-0.2\baselineskip}{\textasciitilde}}
+% For faster processing, load Matlab syntax for listings
+\lstloadlanguages{Matlab}%
+\lstset{language=Matlab,                        	% Use MATLAB
+       frame=single,                           		% Single frame around code
+       basicstyle=\footnotesize\ttfamily,          % Use small true type font
+       keywordstyle=[1]\color{Blue}\bf,       	% MATLAB functions bold and blue
+       keywordstyle=[2]\color{Purple},         	% MATLAB function arguments purple
+       keywordstyle=[3]\color{Blue}\underbar,  % User functions underlined and blue
+       identifierstyle=,                       		% Nothing special about identifiers
+       % Comments small dark green courier
+       commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\footnotesize,
+       stringstyle=\color{Purple},             	% Strings are purple
+       showstringspaces=false,                 	% Don't put marks in string spaces
+       tabsize=5,                              			% 5 spaces per tab
+       %%% Standard MATLAB functions not included in the default language
+       morekeywords={xlim, ylim, zlim, var, alpha, factorial, poissrnd, normpdf, 
+       				normcdf, numel, isa, histc, ones, repmat},
+       %%% MATLAB function parameters
+       morekeywords=[2]{on, off, interp},
+       %%% User defined functions
+       morekeywords=[3]{FindESS, homework_example},
+       morecomment=[l][\color{Blue}]{...},     	% Line continuation (...) like blue comment
+       numbers=left,                           		% Line numbers on left
+       firstnumber=1,                          		% Line numbers start with line 1
+       numberstyle=\tiny\color{Blue},          	% Line numbers are blue
+       stepnumber=5,                            		% Line numbers go in steps of 5
+       literate={~} {\midtilde}{1} 			% set tilde as a literal (no process)
+}
+
+ %matlabscript[nonewpage]{label}{catpion}{filename}
+ %omitting optional parameter puts listing on new page
+  \makeatletter
+  \newcommand{\matlabscript}[4][\@null]
+  {
+   \ifx#1\@null
+    \newpage
+   \else  
+   \fi
+   \phantomsection
+   \addcontentsline{toc}{section}{#2}
+   \frenchspacing
+   \lstinputlisting[caption={[#2]#3},label=code:#2]{#4.m}
+   \nonfrenchspacing
+  }
+  \makeatother
+ 
+%floating equation environment
+\newfloat{fleq}{tbpf}{loe}[chapter]
+
+%numbering rules
+\numberwithin{equation}{section}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+
+\begin{document}
+
+%include chapters
+\include{ch1} % Intro/Background
+\include{ch2} % Obs Methods
+\include{ch3} % Dists
+\include{ch4} % Mission Sims
+\include{ch5} % Int Data
+\include{ch6} % Conclusion
+
+%include bib
+\bibliographystyle{plainnat}
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{Main} 
+
+\appendix
+\singlespacing
+\include{appA}
+\include{appB} 
+\include{appC}
+
+\end{document}

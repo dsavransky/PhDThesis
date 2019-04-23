@@ -1,0 +1,68 @@
+\noindent Unless otherwise noted, the mathematical notation will use the following conventions:
+
+\begin{tabular}{l c l}
+Scalar, function, or set element (when indexed) & $x$ or $x_i$ & lowercase regular\\
+Random variable & $\bar x$& overbar lowercase regular\\
+Vector & $\mf x$ & lowercase bold\\
+Space or frame reference point &$X$& uppercase regular \\
+Matrix &$\mf X$& uppercase bold\\
+Reference frame &$\mc I$& calligraphic\\
+Enumerated set & $\{x\}_{i=1}^{n}$ &
+\end{tabular}
+
+\medskip
+\noindent Frames will be defined by an origin and three orthogonal unit vectors and will be dextral unless otherwise noted:
+\begin{align*}
+\mc I &= (O,\mf e_1, \mf e_2, \mf e_3)\\
+\mf e_3 = \mf e_1 \times \mf e_2 \quad
+\mf e_2 &= \mf e_3 \times \mf e_1 \quad
+-\mf e_1 = \mf e_3 \times \mf e_2  \, .
+\end{align*}
+
+\noindent Vectors describing the positions of point $p$ with respect to reference point $O$ will be written as $\mf r_{p/O}$ and as  $[\mf r_{p/O}]_{\mc I}$ when expressed in the coordinates of frame $\mc I$.
+
+\noindent Vector derivatives in frame $\mc I$ will be written as:
+\begin{equation*}
+\fddt{I} \mf  r_{p/O} = {}^\mc I \mf v_{p/O} \,.
+\end{equation*}
+
+\noindent Unit vectors will be written as:
+\begin{equation*}
+\hat{\mf  x} \triangleq \frac{\mf{x}}{\Vert \mf x \Vert} \triangleq \left< \mf x \right>
+\end{equation*}
+where $\left< \cdot \right>$ represents the normalization operator.
+
+\noindent Matrix transpose will be represented via $[\ldots]^T$:
+\begin{equation*}
+\begin{bmatrix} a & b & c \end{bmatrix}^T \equiv \begin{bmatrix} a\\ b\\c \end{bmatrix} \,.
+\end{equation*}
+
+\noindent $\mf I_{n}$ will represent the $n \times n$ identity matrix and $\mf 0_{m \times n}$ will represent the $m \times n$ matrix of zeros.
+
+\noindent The Fourier transform of a complex function will be represented via $\hat{\phantom{f}}$:
+\begin{equation*}
+\mc F\left\{g(x,y)\right\} \equiv \hat{g}(u,v) \triangleq \iint\limits_{-\infty}^{\quad \infty} g(x,y) e^{-i2\pi\left(ux +vy\right)} \intd{x}\intd{y} \,.
+\end{equation*}
+
+\noindent The symbol $\otimes$ will denote convolution:
+\begin{equation*}
+ f \otimes g \triangleq \int_{-\infty}^{\infty} f(\tau)g(t-\tau) \intd{\tau} \,.
+\end{equation*}
+
+\noindent The Binomial coefficient will be written as:
+\begin{equation*}
+\binom{n}{k} \equiv \prod_{i=1}^k \frac{n-(k-i)}{i} \,,\quad k \in \mathbb N \,.
+\end{equation*}
+
+\noindent Probabilities will be denoted via $P$, with conditional probabilities written as $P[X|Y]$ and joint probabilities as $P[X,Y]$ so that:
+\begin{equation*}
+P[X,Y] = P[X|Y]P[Y] \,.
+\end{equation*}
+
+\noindent Probability density functions will be written as $f_{\bar x} (x)$ and expectation values will be denoted by the symbol $E$ as:
+\begin{equation*}
+E[x] = \int_{-\infty}^\infty x f_{\bar x}(x) \intd{x} \,.
+\end{equation*}
+
+
+

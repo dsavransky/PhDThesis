@@ -1,0 +1,836 @@
+%!TEX TS-program = pdflatexmk
+\documentclass[10pt]{beamer}
+
+%packages
+\usepackage{amsmath,amsthm,amssymb,amsfonts,amsxtra,amstext}
+\usepackage{graphicx,float}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{url}
+\usepackage{movie15}
+\usepackage[T1]{fontenc}
+
+\newcommand{\R}{\mathbf{r}}
+\newcommand{\Rd}{\mathbf{\dot{r}}}
+\newcommand{\Z}{\mathbf{z}}
+\newcommand{\X}{\mathbf{x}}
+\newcommand{\ang}{\mathbf{L}}
+\newcommand{\ec}{\mathbf{e}}
+\newcommand{\bc}{\mathbf{b}}
+\def\mf{\mathbf}
+\def\mc{\mathcal}
+\newcommand{\leftexp}[2]{{\vphantom{#2}}^{#1}\!{#2}}
+\newcommand{\fddt}[1]{\ensuremath{\leftexp{\mathcal{#1}}{\frac{\mathrm{d}}{\mathrm{d}t}}}}
+\newcommand{\PSF}{\mathrm{PSF}}
+\newcommand{\fdddt}[1]{\ensuremath{\leftexp{\mathcal{#1}}{\frac{\mathrm{d}^2}{\mathrm{d}t^2}}}}
+\newcommand{\intd}[1]{\ensuremath{\,\mathrm{d}#1}}
+\definecolor{MyBlue}{cmyk}{0.88, 0.7637,0.0032,0} 
+\definecolor{MyRed}{cmyk}{0,0.994,1,0} 
+\definecolor{MyGreen}{cmyk}{0.8985,0.3258,1,0.2429} 
+\definecolor{MyPurple}{cmyk}{0.7708,0.847,0,0} 
+\definecolor{MyGraphite}{cmyk}{0.5973,0.5124,0.5077,0.2013} 
+
+%presentation theme
+\usetheme[secheader]{Madrid}
+\usecolortheme{seagull}
+\usefonttheme[]{serif}
+
+%university logo
+\pgfdeclareimage[height=0.5cm]{university-logo}{PrincetonShield}
+\logo{\pgfuseimage{university-logo}}
+
+\newcommand\BackgroundPicture[3]{%
+    \setbeamertemplate{background}{%
+    \parbox[c][\paperheight]{\paperwidth}{%
+        \vfill \hfill
+ \includegraphics[width=#2\paperwidth,height=#3\paperheight]{#1}
+         \hfill \vfill
+      }}}
+
+% presentation descriptors
+\title[Exosystem Modeling]{Exosystem Modeling for\\ Mission Simulation and Survey Analysis}
+\subtitle{Final Public Oral}
+\author[Dmitry Savransky]{Dmitry Savransky}
+\institute[Princeton Univ.] 
+{
+  Department of Mechanical and Aerospace Engineering\\
+  Princeton University}
+\date[06.14.2011]{June 14th, 2011}
+\subject{Talks}
+
+\begin{document}
+\setbeamerfont{smalleq}{size=\small} 
+
+\part{Talk}
+\frame{\titlepage}
+
+\section{Introduction and Background}
+\subsection*{Motivation}
+
+\BackgroundPicture{exoplan_bckgnd}{1}{1}
+\frame{
+\frametitle{Why Study Exoplanets?}
+\textbf{
+\begin{itemize}
+\item Without other examples, we have only one sample of planetary systems
+\item Need exoplanet observations to formulate and test planet formation and development models
+\item Observing systems at other points in their development will help explain our own solar system
+\item We may find life
+\end{itemize}
+}}
+\setbeamertemplate{background}{ \setbeamercolor{normal text}{bg=white} }
+
+\frame{
+\frametitle{The Problem}
+\begin{itemize}
+\item Planet observations occur at the absolute boundaries of existing instrument capabilities
+\item Dedicated planet-finding instruments are large, complicated, and very expensive
+\item Even a perfectly functioning exoplanet observatory may not find anything
+\end{itemize}
+
+\bigskip
+
+\begin{block}{}
+\centering We need to model both exosystems and instruments to ensure that useful data will be collected and the maximum amount of information extracted.
+\end{block}
+}
+
+\frame{
+\frametitle{Goal}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width = 0.85\columnwidth]{flowchart1}
+	\end{center}
+\end{figure}
+}
+
+\subsection*{}
+\frame{\frametitle{Outline}\tableofcontents}
+
+\subsection{Known Exoplanets}
+\frame{
+\frametitle{A Brief History of Exoplanet Exploration}
+\begin{figure}[ht]
+\includemovie[
+  controls,
+  toolbar,
+  poster,
+  autoclose,
+  text={\includegraphics[scale=0.48]{exoplanetHistory_front}}
+]{}{}{exoplanetHistory.mp4}
+\end{figure}
+}
+
+\subsection{Planet Finding Methods}
+
+\frame{
+\frametitle{Planet-Finding Techniques Illustrated}
+\begin{figure}[ht]
+\includemovie[
+  controls,
+  toolbar,
+  poster,
+  text={\includegraphics[width=0.75\columnwidth]{methods_anim2_front}}
+]{}{}{methods2.mp4}
+\end{figure}
+}
+
+\frame{
+\frametitle{Exoplanet Data Sets}
+\begin{columns}[c]
+\column{0.5\columnwidth}
+\begin{figure}[ht]
+\centering
+\includegraphics[width = 0.75\columnwidth]{phot_data}
+\vspace{-1ex}
+\caption{\cite{gillon2006high}}
+\end{figure}
+\vspace{-4ex}
+\begin{figure}[ht]
+\centering
+\includegraphics[width = 0.65\columnwidth]{dd_data}
+\vspace{-1ex}
+\caption{\cite{lafreniere2009hst}}
+\end{figure}
+
+\column{0.5\columnwidth}
+\begin{figure}[ht]
+\centering
+\includegraphics[width = 0.65\columnwidth]{../figures/planet_effects}
+\vspace{-1ex}
+\caption{Simulation}
+\end{figure}
+\vspace{-5ex}
+\begin{figure}[ht]
+\centering
+\includegraphics[width = 0.65\columnwidth]{rv_data}
+\vspace{-2ex}
+\caption{\cite{butler2006}}
+\end{figure}
+
+\end{columns}
+}
+
+\frame{
+\frametitle{Imaging Constraints}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=0.3\columnwidth]{imagingConstraintsSchema}
+	\includegraphics[width=0.3\columnwidth]{imagingConstraintsSchemb}
+	\includegraphics[width=0.3\columnwidth]{imagingConstraintsSchemc}
+	\end{center}
+	\caption{Schematic of projected exosystem.  Planet is sufficiently illuminated for detection on the solid part of the orbit, and observable outside the gray circle.}
+\end{figure}
+\vspace{-2ex}
+\begin{block}{}
+All imaging systems have an inner working angle - the smallest observable separation between star and planet, and a limiting planet brightness.
+\end{block}	
+}
+
+\subsection*{}
+\frame{
+\frametitle{Approach}
+\begin{enumerate}
+\item Define a parameter set suitable for encoding whole exosystems
+\item Find mappings between observation methods and parameter set
+\item Develop a statistical description of planet observations
+\item Develop capability to simulate populations of exosystems 
+\item Use these tools to analyze mission concepts and data sets
+\end{enumerate}
+
+\begin{itemize}
+\item[] D. Savransky and N. ~J.~Kasdin, \emph{Simulation and analysis of sub-$\mu$as precision astrometric data for planet finding}. ApJ 2010.
+\item[] D. Savransky,  N.~J.~Kasdin, and E. Cady, \emph{Analyzing the designs of planet finding missions}. PASP 2011.
+\item[] D. Savransky,   E. Cady, N.~J.~Kasdin, \emph{Parameter distributions of Keplerian orbits}. ApJ 2011.
+\end{itemize}
+}
+
+\section{Modeling and Simulation}
+\frame{\frametitle{Outline}\tableofcontents[currentsection]}
+
+\subsection{Describing Planets and Orbits}
+
+\frame{
+\frametitle{Locating Stars in the Sky}
+\framesubtitle{\cite{savransky2010simulation}}
+\vspace{-2ex}
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=0.85\columnwidth]{ast_model}
+ \end{center}
+\end{figure}
+\vspace{-4ex}
+\[
+\R_{S/sc} = {\color{MyBlue}\R_{S/O}(t_0)} +  {\color{MyRed}\R_\mu} - {\color{MyGraphite}\R_{S/G}(t_0)} +  {\color{MyPurple}\R_{S/G}} - {\color{MyGreen}\R_{sc/O}}
+\]
+}
+
+
+\frame{
+\frametitle{System Orientation and Dynamics}
+\begin{columns}[c]
+\column{0.5\columnwidth}
+\vspace{-2ex}
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=0.9\columnwidth]{orbit_diagram}
+ \end{center}
+\end{figure}
+\vspace{-2ex}
+\begin{tabular}{l l l l}
+$a$ & Semi-major axis & $\nu$ & True anomaly\\
+$e$ & Eccentricity &$\bf s$ & Projected separation
+\end{tabular}
+
+\column{0.5\columnwidth}
+\[\mf r_{P/S} = r\left(\cos\nu \hat{\mf e} + \sin\nu \hat{\mf q}\right) \]
+\[r \triangleq \Vert \mathbf{r}_{P/S} \Vert= \frac{a(1-e^2)}{e \cos(\nu) + 1} \]
+\vspace{-4ex}\begin{center}=Orbital radius\end{center}
+\begin{align*}
+{}^\mc I \mf v_{P/S} =& \sqrt{\frac{\mu_P + \mu_S}{\ell}} \times \\
+&\left( -\sin\nu \hat{\mf e} + (e + \cos\nu) \hat{\mf q}\right)
+\end{align*}
+\[\fdddt{I}{\mf r_{P/S}} + (\mu_S + \mu_P) \frac{\mf r_{P/S}}{\Vert\mf r_{P/S}\Vert^3} = 0 \]
+
+\[ \beta \approx \cos^{-1}\left(\frac{z}{r}\right) \, = \textrm{Phase angle}\]
+\end{columns}
+}
+
+\frame{
+\frametitle{Light From Planets}
+\framesubtitle{\cite{brown2005,barman2001irradiated}}
+\vspace{-4ex}
+\begin{columns}[T]
+\column{0.4\columnwidth}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=4cm]{../figures/reflection_diagram}
+	\caption{Reflecting spherical body \cite{sobolev}}
+	\end{center}
+\end{figure}
+\vspace{-4ex}
+\begin{itemize}
+\item Flux Ratio:
+\[\frac{F^{\textrm{ref}}_P}{F_S} = p \left(\frac{R}{r}\right)^2 \Phi(\beta) \]
+\[\Phi_l = \frac{\sin(\beta)+(\pi-\beta)\cos(\beta)}{\pi}\]
+\end{itemize}
+
+\column{0.55\columnwidth}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=4.5cm]{barman_spectra}
+	\vspace{-1ex}
+	\caption{Irradiated planet model spectra \cite{hauschildt2008irradiated}}
+	\end{center}
+\end{figure}
+\vspace{-4ex}
+\begin{itemize}
+\item Day side equilibrium tempearture:
+\[\sigma T^4_{\textrm{eq}} = \sigma T^4_{\textrm{int}} + (1 - A)\left(\frac{R}{r}\right)^2F_S\]
+where  $L_P = 4\pi R^2 \sigma T^4_{\textrm{int}} $
+\end{itemize}
+\end{columns}
+}
+
+\subsection{Constructing Exosystems}
+
+\frame{
+\frametitle{The Parameter Set}
+\begin{itemize}
+\item Dynamics of exosystem with $n$ planets can be encoded with the state:
+\[
+X_D = \begin{bmatrix}\R_{P_1/G} & \Rd_{P_1/G} & m_1 & \ldots & \R_{P_n/G} & \Rd_{P_n/G} & m_n & \R_{S/G} & \Rd_{S/G} & m_S \end{bmatrix}^T
+\]
+where $\Rd \equiv \fddt{I} \R$.
+\item Augment state with astrometric and physical constants:
+\[
+X_C =  \begin{bmatrix} \Rd_\mu & \varpi & \left\{R_i\right\}_1^n  & \left\{p_i\right\}_1^n & R_S &  \left\{T^{\textrm{eff}_i}\right\}_1^n \end{bmatrix}^T
+\]
+\[ X = \begin{bmatrix} X_D \\ X_C \end{bmatrix} \]
+\item Treat observer position $\R_{sc}$ as known
+\item May be possible to simplify (or constrain) parameter set by modeling dependencies between mass, radius, age and temperature \cite{fortney2007,sudarsky2005phase}
+\end{itemize}
+}
+
+\frame{
+\frametitle{Exosystem Generation}
+\begin{block}{}
+How do you simulate populations of exosystems?
+\end{block}
+\begin{enumerate}
+\item Planetary population of interest (i.e., `Earth-like' planets)  - set values or ranges for all orbital and physical planetary parameters
+\begin{itemize}
+\item Good for studying missions/surveys with specific goals, or doing mission comparisons/trade studies
+\end{itemize}
+\item Solar system analogue - exosystems composed of  subset of solar system bodies in the solar system
+\begin{itemize}
+\item Fast way of evaluating effects of multi-planet systems
+\end{itemize}
+\item Model actual distribution of physical and orbital parameters of known planets based on all available data
+\begin{itemize}
+\item If trying to closely predict actual results of a survey
+\end{itemize}
+\item Generate systems starting with simulated nebulae
+\begin{itemize}
+\item Only needed for testing specific formation theories
+\end{itemize}
+\end{enumerate}
+}
+
+\frame{
+\frametitle{Exosystem Orientation}
+There are no known biases on exosystem orientation
+\begin{columns}[c]
+\column{0.5\columnwidth}
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=1\columnwidth]{uniformSphere}
+ \end{center}
+\end{figure}
+\column{0.5\columnwidth}
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=1\columnwidth]{scatterSphere}
+ \end{center}
+\end{figure}
+\end{columns}
+\[ \psi \sim U([0,2\pi]) \qquad \theta \sim \cos^{-1}\left( U([-1,1]) \right) \]
+}
+
+\frame{
+\frametitle{Exosystem Propagation}
+Once systems are generated, need to be able to propagate planets forward in time
+\vspace{-2ex}
+\begin{columns}[c]
+\column{0.65\columnwidth}
+\begin{figure}[ht]
+ \center
+ \includegraphics[width = 0.95\columnwidth]{../figures/eccenVar}
+  \caption{Variation in orbital eccentricities of solar system bodies over one million years.}
+\end{figure}
+\column{0.35\columnwidth}
+\begin{itemize}
+\item Store Keplerian orbital elements, update anomalies (fast but misses n-body effects)
+\item Store positions and velocities and integrate (slow but nearly exact)
+\item Hybrid scheme \cite{chambers1999hybrid}
+\end{itemize}
+\end{columns}
+}
+
+\frame{
+\frametitle{Multi-Planet Stability}
+Its highly unlikely that we'll observe unstable systems, so simulated systems should have long-term stability
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=0.75\columnwidth]{../figures/subSolSys}
+ \end{center}
+ \caption[Sample Multi-body exosystem ]{ Orbits over 1 million years for exosystem composed of analogues of Earth (blue), Mars (red) and Jupiter (green), with a 1.5 $L_\odot$ star.}
+\end{figure}
+}
+
+\subsection*{}
+\frame{
+\frametitle{Mapping Instruments to the Parameter Set}
+Each observation technique can be described in terms of elements of this parameter set
+\begin{itemize}
+\item Imaging - planet position and physical parameters
+\item Transit photometry - planet and star positions and radii
+\item Doppler spectroscopy - star position and velocity
+\item Interferometric astrometry - planet and star positions and astrometric parameters
+\end{itemize}
+\begin{block}{}
+We can now describe exosystems and the data produced by observing them with various instruments using one unified parameter set.
+\end{block}
+}
+
+\section{Applications}
+
+\frame{\frametitle{Outline}\tableofcontents[currentsection]}
+
+\subsection{Detection Statistics}
+
+\frame{
+\frametitle{Direct Detection Observable Distribution}
+\framesubtitle{\cite{brown2005}}
+\vspace{-2ex}
+\only<1>{
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.65\textwidth]{../figures/earthTwin_pdf}
+\vspace{-2ex}
+ \caption[Earth-twin observation PDF]{ Joint probability density function of ($\bar s = s,\bar F_P/F_S = F_P/F_S$) for Earth-twin planets ($a \in [0.7, 1.5]$, $e \in [0, 0.35]$, $p = p_\oplus$, $R = R_\oplus$) sampled via 1 billion Monte Carlo trials.}
+\end{figure} 
+}
+\only<2>{
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.65\textwidth]{../figures/earthTwin_cdf}
+\vspace{-2ex}
+ \caption[Earth-twin observation PDF]{ Joint cumulative distribution function of ($\bar s = s,\bar F_P/F_S = F_P/F_S$) for Earth-twin planets ($a \in [0.7, 1.5]$, $e \in [0, 0.35]$, $p = p_\oplus$, $R = R_\oplus$) sampled via 1 billion Monte Carlo trials.}
+\end{figure} 
+}
+}
+
+\frame{
+\frametitle{Monte Carlo is Inefficient}
+\vspace{-2ex}
+\only<1>{
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.65\textwidth]{../figures/undersampled_comp_pdf}
+\vspace{-2ex}
+ \caption[Earth-twin observation PDF]{ Joint probability density function of ($\bar s = s,\bar F_P/F_S = F_P/F_S$) for a randomized planetary population  ($a \in [0.4, 30]$, $e \in [0, 0.8]$, $p \in [0.1, 0.5]$, $R \in [0.7, 11.2]R_\oplus$) sampled via 1 billion Monte Carlo trials.}
+\end{figure} 
+}
+\only<2>{
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=0.75\columnwidth]{photHist}
+	\caption[]{ Probability density function for transit flux ratio ($\bar F^{(e)} = F^{(e)}$).}
+	\end{center}
+\end{figure}
+}
+}
+
+\frame{
+\frametitle{Distributions of Keplerian Orbital Elements}
+\framesubtitle{\cite{savransky2011parameter}}
+If you know the distribution functions of the observables, you can directly sample the completeness function.  Assume:
+\begin{itemize}
+\item Exosystem orientations are uniform wrt the observer
+\item Distributions for semi-major axis and eccentricity are known
+\end{itemize}
+
+\begin{columns}[c]
+\column{0.65\columnwidth}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=0.725\columnwidth]{../figures/betadist}
+	\vspace{-2ex}
+	\caption{Phase angle PDF: Monte Carlo (black) and algebraic solution (green)}	
+\end{center}
+\end{figure}
+
+\column{0.3\columnwidth}
+\begin{block}{}
+\centering
+$\beta$ is always sinusoidally distributed!
+\end{block}
+\end{columns}
+}
+
+\frame{
+\frametitle{Direct Sampling vs. Monte Carlo}
+\only<1>{
+\begin{figure}
+	\begin{center}
+	\includegraphics[width=0.7\columnwidth]{../figures/sint}
+	\vspace{-2ex}
+	\caption{Probability density function of apparent separation using Monte Carlo (black) and algebraic solution (green) for uniform $a$ and $e$.}	
+\end{center}
+\end{figure}
+}
+\only<2>{
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\columnwidth]{../figures/mdist}
+\vspace{-2ex}
+\caption{Probability density function of Lambert phase function $m = \Phi(\beta)$ using Monte Carlo (black) and algebraic solution (green).}
+\end{figure} 
+}
+}
+
+\frame{
+\frametitle{Period Estimation}
+\vspace{-2ex}
+\[ P_{orb} = 2\pi\sqrt{a^3/(\mu_S + \mu_P)} \]
+\begin{itemize}
+\item Assume $\mu_S >> \mu_P$ and get $\mu_S$ from mass-luminosity relationship \cite{henry1993}
+\item Need to estimate the semi-major axis
+\end{itemize} 
+\[ f_{\bar s\vert\bar a}\left(s \vert a\right)  = \frac{1}{\pi}  \int_{0}^1  \int_{0}^{1} \frac{s}{a\sqrt{\left(1 - l^2\right)\left[(ael)^2 - (al-s)^2\right]}}f_{\bar{e}}(e) \, \mathrm{d}e \, \mathrm{d}l  \]
+\[\hat a = \arg\max_{a \in \bar a}   \frac{1}{\pi}  \int_{0}^1  \int_{0}^{1} \frac{s_0}{a\sqrt{\left(1 - l^2\right)\left[(ael)^2 - (al-s_0)^2\right]}}f_{\bar{e}}(e) \, \mathrm{d}e \, \mathrm{d}l \]
+\medskip
+\begin{block}{}
+\[ \hat a = s_0 \]
+\end{block}
+}
+
+\frame{
+\frametitle{Semi-major Axis Estimation}
+\vspace{-2ex}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.75\columnwidth]{../figures/amle}
+%add better labels
+\vspace{-2ex}
+\caption{Likelihood function for semi-major axis given one observation of apparent separation $s_0 = 0.8$ for uniform distribution of $a$ (in AU) and uniformly distributed (red) or step-distributed $e$ (blue). }
+\end{figure} 
+}
+
+\frame{
+\frametitle{Transit Probability}
+\begin{itemize}
+\item Transits occur when
+\[s < R_S + R \]
+so probability of transit is 
+\[ P(s < R_S + R) = \int_0^{R_S + R} f_{\bar s} (s) \intd{s} \]
+\item Assuming a specific observing cadence, occurrence of transits is modeled as a Poisson process.  In each time interval $\Delta t$, the probability of transits is
+\[ P[N_{\textrm{transits}}(\Delta t) > 0] = 1 - e^{-\lambda \Delta t}  \]
+\item To capture all transits of orbits with semi-major axis $a_0$ in one orbital period
+\[ \Delta t \le  \frac{1}{\pi} \frac{R_s + R}{a_0} \]
+\end{itemize}
+}
+
+\frame{
+\frametitle{Transit Detection}
+\vspace{-2ex}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.65\columnwidth]{../figures/transitCadences}
+\vspace{-2ex}
+\caption{Portion of observable transits detected over one orbital period for $a_0 = 1, R_S = R_\odot$ and $R = 0$ as a function of observation cadence using Monte Carlo (black) and algebraic solution (green).}
+\end{figure} 
+}
+
+\subsection{Mission Analysis}
+
+\frame{
+\frametitle{Mission Simulation}
+\framesubtitle{\cite{savransky2010}}
+\begin{itemize}
+	\item Create descriptions of instruments, planetary orbits/properties and observations
+	\item Generate ensembles of full mission simulations (timelines of observations)
+	\item Extract distributions of science yield/performance metrics
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[width = 0.75\columnwidth]{../figures/simFlowchart}
+ \caption{Flowchart of simulation framework}
+ \end{figure}
+}
+
+\frame{
+\frametitle{Visits as a Graph}
+\begin{columns}
+	\column{0.5\columnwidth}
+	\begin{figure}
+		\begin{center}
+		\includegraphics[width=0.8\columnwidth]{visit_graph}
+		\caption{Visit graph for 3 target pool.}
+		\end{center}
+	\end{figure}
+	
+	\column{0.5\columnwidth}
+	\begin{itemize}
+		\item Each set of possible transitions on the visit graph can be represented as a weighted adjacency matrix.
+		\item The weights of the matrix entries represent the `cost' of choosing the next star. 
+	\end{itemize}
+\end{columns}
+The cost of transitioning from target $i$ to target $j$ is:
+\[
+\begin{split}
+A_{ij}  &= \left[ a_1 \frac{\cos^{-1}\left(u_i \cdot u_j\right)}{2\pi}B_{inst} + a_2 \textrm{comp}_j  - a_3 e^{t_c-t_f} B_{unvis} +  a_4 B_{vis}(1-B_{revis}) \right. \\ 
+&\left.{}  - a_5 B_{revis} \left(\frac{N_j}{N_{req}} \right)(N_j < N_{req}) - a_6 \frac{\tau_j}{\textrm{vis}_j} \right] /(1-B_{keepout})
+\end{split}
+\]
+}
+
+\frame{
+\frametitle{Local Optimality of Decision Modeling}
+\begin{figure}[ht]
+ \begin{center}
+   \includegraphics[width=0.45\columnwidth,clip=true,trim=0.4in 0.25in 0.4in 0in]{../figures/optimhistsc} 
+   \includegraphics[width=0.45\columnwidth,clip=true,trim=0.4in 0.25in 0.4in 0in]{../figures/optimhistsd}
+ \end{center}
+ \caption[]{Comparison of scientific yield from automated visit order selection and randomized visit order.  The blue bars are histograms of results from 1000 mission simulations using randomized visit order.  Red dashed lines are results from the automated visit order. Green dashed lines are results obtained by always going to the next highest completeness target.}
+ \end{figure}
+}
+
+\frame{
+\frametitle{Mission Analysis}
+\vspace{-2ex}
+\only<1>{
+\begin{figure}[ht]
+ \begin{center}
+  \begin{tabular}{c c}
+   \includegraphics[width=0.35\columnwidth]{../figures/c4m_ADETs} &
+   \includegraphics[width=0.35\columnwidth]{../figures/c4m_AuDETs} \\
+   \includegraphics[width=0.35\columnwidth]{../figures/c4m_Auvisits} &
+   \includegraphics[width=0.35\columnwidth]{../figures/c4m_ASPECTRA}
+  \end{tabular}
+ \end{center}
+ \end{figure}
+}
+\only<2>{
+\begin{figure}[ht]
+\centering
+ \includegraphics[width=0.9\columnwidth,clip=true,trim=0.8in 0in 0.75in 0in]{../figures/theiaFuel}
+ \caption{Spacecraft propellant use (in kg).}
+ \end{figure}
+}
+}
+
+\subsection{Data Analysis}
+\frame{
+\frametitle{State Estimation}
+\begin{itemize}
+\item Any exosystem measurement is a partial observation of an underlying dynamical system
+\[\Z_k = \boldsymbol{h}_k(\X_k,k) + \boldsymbol{n}\]
+\item The system evolves via known physical laws
+\[\X_{k+1} = \boldsymbol{f}(\X_k,k)\]
+\item State estimation seeks to reconstruct the full state
+\[ \hat\X_k = \arg\min E\{\Vert \X_k - \hat\X_k\Vert^2\} \]
+\item Can be formulated as a recursive two-step process:
+\[ p(\X_k | \Z_{1:k-1}) = \int p(\X_k | \X_{k-1})p(\X_{k-1} | \Z_{1:k-1}) d\X_{k-1} \]
+\[ p(\X_k|\Z_{1:k}) = \frac{p(\Z_k | \X_k) p(\X_k | \Z_{1:k-1})}{p(\Z_k | \Z_{1:k-1})} \]
+\end{itemize}
+}
+
+\frame{
+\frametitle{Combining Data Sets}
+  \only<1>{
+  \begin{figure}[ht]
+ \begin{center}
+  \begin{tabular}{ll}
+   \includegraphics[height=5.25cm,clip=true,trim=0.6in 0in 0.1in 0in]{../figures/planpos1} &
+    \includegraphics[height=5.25cm,clip=true,trim=0.9in 0in 0.1in 0in]{../figures/planvel1} 
+     \end{tabular}
+ \end{center}
+\end{figure}
+    }    
+      \only<2>{
+      \begin{figure}[ht]
+ \begin{center}
+  \begin{tabular}{ll}
+   \includegraphics[height=5.25cm,clip=true,trim=0.6in 0in 0.1in 0in]{../figures/planpos2} &
+    \includegraphics[height=5.25cm,clip=true,trim=0.9in 0in 0.1in 0in]{../figures/planvel2}
+     \end{tabular}
+ \end{center}
+\end{figure} 
+    }   
+      \only<3>{
+      \begin{figure}[ht]
+ \begin{center}
+  \begin{tabular}{ll}
+   \includegraphics[height=5.25cm,clip=true,trim=0.6in 0in 0.1in 0in]{../figures/planpos3} &
+    \includegraphics[height=5.25cm,clip=true,trim=0.9in 0in 0.1in 0in]{../figures/planvel3} 
+     \end{tabular}
+ \end{center}
+\end{figure}
+    }
+    True state values (solid) and filter estimates (dotted) for $x$ (blue) $y$ (green) and $z$ (red) components of position and velocity.  
+}
+
+\section*{}
+\subsection*{}
+\frame{
+\frametitle{Conclusions}
+\begin{itemize}
+\item Detailed exosystem and instrument modeling is very important to all aspects of planet-finding
+\begin{itemize}
+\item Mission design
+\item Survey design
+\item Data analysis
+\end{itemize}
+\item Statistical analyses can provide powerful tools for planning and data processing
+\item Optimal estimation techniques are highly applicable to this area
+\end{itemize}
+}
+
+\appendix
+
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\frame[allowframebreaks]{
+\frametitle{References}
+\setbeamerfont{refs}{size=\tiny} 
+\usebeamerfont{refs}
+\bibliography{Main}   
+\bibliographystyle{apalike}   
+}
+
+\frame{
+\frametitle{Current Exoplanet Statistics}
+\only<1>{\begin{figure}[ht]
+    \includegraphics[width=0.48\columnwidth]{currMassHist}
+    \includegraphics[width=0.48\columnwidth]{currSMaxHist}
+\end{figure}}
+\only<2>{\begin{figure}[ht]
+    \includegraphics[width=0.48\columnwidth]{M_v_a}
+    \includegraphics[width=0.48\columnwidth]{e_v_a}
+\end{figure}}
+\begin{center}
+Data from \url{http://nsted.ipac.caltech.edu/}. Retrieved 06/01/2011.
+\end{center}
+}
+
+\frame{
+\frametitle{Keplerian Orbits}
+\begin{figure}
+	\begin{center}
+	\includegraphics[width = 0.6\columnwidth]{../figures/anomaly_diagram}
+	\end{center}
+\end{figure}
+}
+
+\frame{
+\frametitle{Imaging}
+\framesubtitle{\cite{kasdin2006,savransky2010}}
+\begin{itemize}
+ \item Model observation as:
+   \begin{equation*}
+   \mathbf{z}(x,y) = C_p\bar P(x - \xi,y - \eta) +\boldsymbol{n}
+   \end{equation*}
+   where $C_p$ is the mean photon count at planet location - pixel $(\xi,\eta)$, $\bar P$ is the normalized PSF, and $\boldsymbol{n}$ is the noise.
+\item Pixel location maps to on-sky separation as:
+\[ \mathbf{s} = \leftexp{\mathcal{I}}{C}^{\mathcal{S}} \left[\begin{array}{c} \xi \\ \eta \end{array}\right] \frac{\sqrt{\Delta \alpha}}{f\varpi} \]
+where $\Delta \alpha$ is the physical pixel size, $f$ is the focal length, and $\leftexp{\mathcal{I}}{C}^{\mathcal{S}}$ rotates the sky frame into the inertial frame.
+\item $C_p \propto F_P$, with constant depending on camera characteristics.
+\end{itemize}
+}
+
+\frame{
+\frametitle{Transit Photometry}
+\framesubtitle{\cite{mandel2002analytic}}
+\vspace{-1ex}
+\begin{figure}[ht]
+ \begin{center}
+    \includegraphics[width=0.35\columnwidth]{../figures/phot_model}
+ \end{center}
+\end{figure}
+\vspace{-2ex}
+\[ \frac{F^{(e)}}{F} = 
+\left\{ \begin{array}{l l}
+1 & R_S + R < s\\
+1 - \frac{1}{\pi} \left[ \frac{R^2 }{R_S^2}\kappa_0 + \kappa_1 - \sqrt{\frac{s^2}{R_S^2} - \frac{\left( R_S^2 + s^2 - R^2\right)^2}{4 R_S^4}}\right] & \vert R_S - R \vert < s \le R_S + R \\
+1 - \left(\frac{R}{R_S}\right)^2 & s \le R_S - R\\
+0 & s \le R - R_S
+\end{array} \right. \]
+\[ \kappa_0 = \cos^{-1}\left(\frac{R^2 +s^2 - R_S^2}{2Rs}\right) \qquad \kappa_1 =  \cos^{-1}\left(\frac{R_S^2 - R^2 + s^2}{2R_S s}\right) \]
+}
+
+\frame{
+\frametitle{Doppler Spectroscopy}
+\framesubtitle{\cite{marcy1992precision,butler1996attaining}}
+\begin{itemize}
+\item The observed spectrum as a function of wavelength:
+\[
+I_{obs}(\lambda) = \kappa \left[ I_S(\lambda + \Delta\lambda_S)T_C(\lambda + \Delta\lambda_C) \right] \otimes \PSF
+\]
+where $I_S$ is the stellar spectrum and $T_C$ is the transmission function of the absorption cell.
+\item After deconvolution and fitting, relate to parameter set via relativistic Doppler equation:
+\[
+\frac{\Delta\lambda_S - \Delta\lambda_C}{\lambda} = \frac{\left(1 + \left(\frac{v}{c}\right)^2\cos\theta\right)\left(1 + \rho_g\right)}{n\sqrt{1 - \left(\frac{v}{c}\right)^2}} - 1
+\]
+where $v = \Vert \Rd_{S/sc}\Vert$ and $\cos\theta = \frac{{\mf r}_{S/sc}}{\Vert \R_{S/sc}\Vert}  \cdot \frac{\Rd_{S/sc}}{\Vert\Rd_{S/sc}\Vert}$
+\end{itemize}
+}
+
+\frame{
+\frametitle{Interferometric Astrometry}
+\framesubtitle{\cite{konacki2002frequency,savransky2010simulation}}
+Narrow-angle astrometric measurement with interferometer baseline $B$:
+\vspace{-3ex}
+\begin{columns}
+\column{0.5\columnwidth}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\columnwidth]{../figures/narrow_angle_model}
+\end{figure} 
+\column{0.5\columnwidth}
+\begin{align}
+d_i &=B \left(\cos\theta_i - \cos(\theta_i - \Delta\theta_i)\right) \nonumber\\
+&=B\left(\cos\theta_i(1 - \cos\Delta\theta_i) - \sin\theta_i \sin\Delta\theta_i\right)\nonumber
+\end{align}
+\[
+\mf d = B\left[ \begin{array}{l} \mf b_1 \cdot \left(\hat{\mf r}_{S/sc} - \hat{\mf r}_{c/sc}\right) \\\mf b_2 \cdot \left(\hat{\mf r}_{S/sc} - \hat{\mf r}_{c/sc}\right) \end{array}\right] + \mf n
+\]
+\end{columns}
+\usebeamerfont{smalleq}
+\begin{align*}
+\hat\R_{S/sc} &= \frac{\R_{S/sc}}{\| \R_{S/sc} \|} = (\R_{S/O}(t_0) + \R_\mu +\Delta \R_{S/G}- \R_{sc/O})\times  \\
+&\begin{array}{l}\left\{
+\R_{S/O}(t_0)\cdot\R_{S/O}(t_0) + \R_\mu \cdot \R_\mu + \Delta \R_{S/G} \cdot \Delta \R_{S/G} +\R_{sc/O} \cdot \R_{sc} \right. \\
+\;  {}+ 2\R_{S/O}(t_0) \cdot \R_\mu + 2\R_{S/O}(t_0) \cdot \Delta \R_{S/G} - 2\R_{S/O}(t_0) \cdot \R_{sc/O} \\
+\; \left. {} + 2 \R_\mu \cdot \Delta \R_{S/G} - 2 \R_\mu \cdot \R_{sc/O} - 2 \Delta \R_{S/G} \cdot \R_{sc/O}\right\}^{-\frac{1}{2}} 
+ \end{array}
+\end{align*}
+}
+ 
+
+\frame{
+\frametitle{Distributions of Keplerian Orbital Elements}
+\framesubtitle{\cite{savransky2011parameter}}
+\[f_{\bar{\nu}}(\nu) =  \frac{1}{2\pi} \int_{0}^{1} \frac{\left(1-e^2\right)^\frac{3}{2}}{\left(1+e\cos\nu\right)^2} f_{\bar{e}}(e)\, \mathrm{d}e\]
+\[f_{\bar{r}}(r) = \frac{1}{\pi}\int_{0}^{\infty} \int_{0}^{1} \frac{r}{a\sqrt{(ae)^2 - (a-r)^2}}f_{\bar{e}}(e) \, \mathrm{d}e \, f_{\bar{a}}(a)\, \mathrm{d}a \]
+\[f_{\bar s}(s) = \frac{1}{\pi}  \int_{0}^1 \int_{0}^{\infty} \int_{0}^{1} \frac{s}{a\sqrt{\left(1 - l^2\right)\left[(ael)^2 - (al-s)^2\right]}}f_{\bar{e}}(e) \, \mathrm{d}e \, f_{\bar{a}}(a)\, \mathrm{d}a \, \mathrm{d}l \]
+\[f_{\bar F_R}(F_R) = \int\limits_{-\infty}^\infty \frac{f_{\bar{n}}(n)}{npR^2} \cos\left(\sum_{k=1}^{\infty} b_k \left(\frac{F_R}{npR^2} - \frac{1}{\pi}\right)^k\right)\left|\sum_{k=1}^\infty k b_k \left(\frac{F_R}{npR^2} - \frac{1}{\pi}\right)^{k-1} \right| \, \mathrm{d}n \]
+\[b_k = \frac{1}{k \alpha_1^k} \sum_{x \in X} (-1)^{\vert x \vert} \prod_{r=1}^{\vert x\vert}(k-1+r)  \prod_{i=1}^{k-1}\frac{\left(\alpha_{i+1}/\alpha_1\right)^{x_i}}{x_i!}\]
+}
+
+\setcounter{framenumber}{\value{finalframe}}
+
+\end{document}

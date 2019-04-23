@@ -1,0 +1,78 @@
+\chapter{Default Simulation Settings}\label{app:defSets}
+
+\begin{verbatim}
+% processing parmaeters
+'FAP',0.01/1000;...         false alarm probability
+'MDP',0.001;...             missed detection probability
+'Nruns',100;...             number of monte carlo runs used
+'minComp',0.1;...           minimum completeness for targets
+'intCutoff',50;...          integration cutoff (days)
+'maxSlewTime',30;...        maximum slewing time (days)
+'defBurnPortion',0.05;...   default burn portion
+'coeffs',ones(6,1)/6;...    Cost function coefficients
+'missionStart',23.75;...    Mission start date, years after 1991.25
+%instrument parameters
+'dr',0.001;...              dark rate
+'Npix',14.3;...             # of noise pixels
+'Ndark',10;...              number of dark frames used
+'lambda',500;...            detection wavelength (nm)
+'sigma_r',3;...             read noise (e/s)
+'t_exp',1000;...            exposure time per read (s)
+'SNchar',11;...             SNR for characterization
+'deltaLambda',100;...       bandpass (nm)
+'QE',0.5;...                detection quantum efficiency
+'QEchar',0.5;...            characterization quantum efficiency
+'eta2',0.57;...             post-supression system attenuation
+'pupilArea',4*pi;...        entrance pupil area (m^2)
+'throughput',0.5;...        supression system throughput
+'haveOcculter',false;...    boolean
+'occulterSep',55000;...     occulter-telescope distance (km)
+'occulterSep2',35000;...    2nd occulter separation (km) (if MDO)
+'throughput2',0.5;...       throughput at 2nd separation (if MDO)
+'Rspec', 70;...             spectral resolving power l/Delta l
+'specLambda',760;...        spectral wavelength of interest
+'shapeFac',pi/4;...         shapeFac*diameter^2 = Area
+'contrast',1e-10;...        designed suppression level
+'pixelArea',1e-10;...       pixel size (m^2)
+'focalLength',240;...       (m)
+'telescopeKeepout',45;...   degrees
+%orbit parameters
+'a_min',0.7;...             semi-major axis min (AU)
+'a_max',1.5;...             semi-major axis max (AU)
+'e_min',0;...               eccentricity min
+'e_max',0.35;...            eccentricity max
+'p_min',0.26;...            albedo min
+'p_max',0.26;...            albedo max
+'conf',false;...            orbits confined to [a_min a_max] range (boolean)
+%target list filters (booleans)
+'cS1',false;...             1. Life Expectancy
+'cS2',true;...              2. Main Sequence
+'cS3',false;...             3. No Indication of Youth
+'cS4',false;...             4. No Indication of Low Metallicity
+'cS5',false;...             5. No Indication of Intrinsic Variability
+'cS6',false;...             6. Not a Halo Star
+'cS7',false;...             7. F,G,K only
+'cE1',false;...             1. Data Quality
+'cE2',true;...              2. Binary (or bright star within 10 as)
+'cE3',7;...                 3. Max Apparent Visual Magnitude (integer)
+'IWA',75/1000;...           inner working angle (as)
+'dMagLim',26;...            limiting delta mag
+'haveTargList',false;...    target list has been calculated
+%system properties
+'dImax',15;...              maximum mutual inclination (degrees)
+'maxNplan',1;...            maximum # of planets per system
+'exozodi',1.5;...           exozodi level in zodi (geometric mean)
+'exozodiVar',0;...          exozodi variation (variance of log normal dist)
+%spacecraft parameters
+'mission_life',5;...        primary mission lifetime (years)
+'extended_life',0;...       extended mission (years)
+'thrust',450;...            maneuvering spacecraft slew thrust (mN)
+'initMass',6000;...         maneuvering spacecraft  initial (wet) mass (kg)
+'dryMass',3400;...          maneuvering spacecraft  dry mass (kg)
+'coMass',5800;...           non-maneuvering spacecraft mass (kg)
+'slewIsp',4160;...          specific impulse for slewing (s)
+'skIsp',220;...             specific impulse for stationkeeping (s)
+'orbitSize',5.1e5;...       azimuthal size of telescope orbit (km)
+'dutyCycle',1;...           observation duty cycle
+'missionPortion',1;...      portion of mission devoted to planets
+\end{verbatim}
