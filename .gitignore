@@ -240,3 +240,8 @@ TSWLatexianTemp*
 
 # generated if using elsarticle.cls
 *.spl
+
+#MATLAB stuff
+*.m~
+
+.DS_Store
